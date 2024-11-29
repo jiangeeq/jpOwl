@@ -1,0 +1,25 @@
+By following these steps, you can ensure that the jpOwl obje
+ct is properly initialized and used in your tests, r
+egardless of whether you're using a mock or a real instance.Transaction{name='DatabaseCall', duration=123}
+Event{name='SystemError', detail='NullPointerException'}
+Heartbeat{name='ServerStatus', status='OK'}
+Metric{name='ResponseTime', value=256.78}
+Transaction{name='DatabaseCall', duration=123}
+Event{name='SystemError', detail='NullPointerException'}
+Heartbeat{name='ServerStatus', status='OK'}
+Metric{name='ResponseTime', value=256.78}
+Transaction{name='DatabaseCall', duration=123}
+Event{name='SystemError', detail='NullPointerException'}
+Heartbeat{name='ServerStatus', status='OK'}
+Metric{name='ResponseTime', value=256.78}
+Transaction{name='DatabaseCall', duration=123}
+Event{name='SystemError', detail='NullPointerException'}
+Heartbeat{name='ServerStatus', status='OK'}
+Metric{name='ResponseTime', value=256.78}
+
+我希望您充当 java领域架构师。技术水平跟springboot作者一样牛
+我将提供有向你咨询关于框架项目开发的问题，我需要你给出答案或建议
+给出的代码还要考虑到扩展性以及用设计模式优化，我的主要目的是自己
+开发一款公司全业务项目通用的spring-boot-starter类型jar，所以代码要优雅和支持并发，明白了吗
+
+
