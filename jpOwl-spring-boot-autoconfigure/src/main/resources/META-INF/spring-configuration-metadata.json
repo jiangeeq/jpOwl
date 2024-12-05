@@ -1,0 +1,113 @@
+{
+  "groups": [
+    {
+      "name": "jpowl",
+      "type": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties",
+      "sourceType": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties",
+      "description": "jpOwl监控框架配置"
+    },
+    {
+      "name": "jpowl.monitor",
+      "type": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties$Monitor",
+      "sourceType": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties",
+      "description": "监控相关配置"
+    },
+    {
+      "name": "jpowl.alert",
+      "type": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties$Alert",
+      "sourceType": "com.youpeng.jpowl.autoconfigure.properties.JpOwlProperties",
+      "description": "告警相关配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jpowl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用jpOwl",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.output-type",
+      "type": "com.youpeng.jpowl.core.OutputType",
+      "description": "日志输出类型",
+      "defaultValue": "FILE"
+    },
+    {
+      "name": "jpowl.file-path",
+      "type": "java.lang.String",
+      "description": "日志文件路径"
+    },
+    {
+      "name": "jpowl.buffer-size",
+      "type": "java.lang.Integer",
+      "description": "缓冲区大小(64-8192)",
+      "defaultValue": 1024
+    },
+    {
+      "name": "jpowl.monitor.log-level",
+      "type": "com.youpeng.jpowl.config.LogLevel",
+      "description": "默认日志级别",
+      "defaultValue": "INFO"
+    },
+    {
+      "name": "jpowl.monitor.method-monitor-enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用方法监控",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.monitor.sampling-rate",
+      "type": "java.lang.Integer",
+      "description": "监控采样率(0-100)",
+      "defaultValue": 100
+    }
+  ],
+  "hints": [
+    {
+      "name": "jpowl.output-type",
+      "values": [
+        {
+          "value": "FILE",
+          "description": "文件输出"
+        },
+        {
+          "value": "MEMORY",
+          "description": "内存输出"
+        },
+        {
+          "value": "ELASTICSEARCH",
+          "description": "Elasticsearch输出"
+        },
+        {
+          "value": "MONGODB",
+          "description": "MongoDB输出"
+        }
+      ]
+    },
+    {
+      "name": "jpowl.monitor.log-level",
+      "values": [
+        {
+          "value": "TRACE",
+          "description": "跟踪级别"
+        },
+        {
+          "value": "DEBUG",
+          "description": "调试级别"
+        },
+        {
+          "value": "INFO",
+          "description": "信息级别"
+        },
+        {
+          "value": "WARN",
+          "description": "警告级别"
+        },
+        {
+          "value": "ERROR",
+          "description": "错误级别"
+        }
+      ]
+    }
+  ]
+} 

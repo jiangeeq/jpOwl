@@ -1,7 +1,26 @@
-
-
 ## 设计架构
 jpOwl 客户端使用 Java 语言开发，旨在提供简洁的 API 和高可靠性，确保在各种业务场景下不会影响业务服务性能。目标是为各业务线提供全面的埋点功能和数据采集能力。
+
+jpowl/
+├── jpowl-parent                    # 父项目，管理依赖版本
+├── jpowl-core                      # 核心实现
+├── jpowl-spring-boot-starter       # starter模块
+├── jpowl-spring-boot-autoconfigure # 自动配置模块
+├── jpowl-samples                   # 示例项目
+└── jpowl-docs                      # 文档
+
+jpowl-docs/
+├── README.md                # 项目总览
+├── quick-start.md          # 快速开始指南
+├── user-guide/             # 用户指南
+│   ├── configuration.md    # 配置说明
+│   ├── monitoring.md       # 监控使用
+│   └── alerts.md          # 告警配置
+├── developer-guide/        # 开发者指南
+│   ├── architecture.md     # 架构设计
+│   └── contributing.md     # 贡献指南
+└── api-docs/              # API文档
+
 
 数据收集机制：
 * **ThreadLocal：** 利用 ThreadLocal 为每个线程提供独立的副本，避免线程间的数据冲突。在执行业务逻辑时，将监控数据存储到 ThreadContext 中，它以树形结构组织监控信息。业务线程完成后，将监控对象异步地存入内存队列。jpOwl 使用消费者线程异步将数据发送到第三方存储引擎。
@@ -55,3 +74,8 @@ jpOwl监控系统将每次URL、Service的请求内部执行情况都封装为�
 1. **异步序列化：** 使用 Protobuf 协议进行高效的异步序列化。(适用跨语言支持的数据传输需求)
 2. **异步通信：** 基于 Netty 实现异步 NIO 数据传输。 (适用应用程序到日志服务器的高效传输)
 
+
+我希望您充当 java领域架构师。技术水平跟springboot作者一样牛
+我将提供有向你咨询关于框架项目开发的问题，我需要你给出答案或建议
+给出的代码还要考虑到扩展性以及用设计模式优化，我的主要目的是自己
+开发一款公司全业务项目通用的jar，所以代码要优雅和支持并发，明白了吗

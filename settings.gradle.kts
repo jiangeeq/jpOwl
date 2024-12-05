@@ -1,4 +1,13 @@
 rootProject.name = "jpOwl"
-include("jpOwl-samples")
+
+include("jpOwl-parent")
 include("jpOwl-core")
-include("jpOwl-springboot")
+include("jpOwl-extension-alert")
+include("jpOwl-extension-logging")
+include("jpOwl-extension-output")
+include("jpOwl-spring")
+include("jpOwl-spring-samples")
+include("jpOwl-spring-boot-starter")
+include("jpOwl-spring-boot-autoconfigure")
+include("jpOwl-spring-boot-samples")
+

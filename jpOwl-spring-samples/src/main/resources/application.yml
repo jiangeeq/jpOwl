@@ -1,0 +1,41 @@
+jpowl:
+  enabled: true
+  output:
+    sources:
+      - type: FILE
+        enabled: true
+        properties:
+          path: /var/log/jpowl.log
+          buffer-size: 8192
+          
+      - type: ELASTICSEARCH
+        enabled: true
+        properties:
+          hosts: localhost:9200
+          index-name: jpowl-metrics
+          bulk-size: 1000
+          
+      - type: MONGODB
+        enabled: true
+        properties:
+          uri: mongodb://localhost:27017
+          database: jpowl
+          collection: metrics
+          batch-size: 100
+          
+  monitor:
+    log-level: INFO
+    method-monitor-enabled: true
+    
+  alert:
+    enabled: true
+    channels:
+      email:
+        enabled: true
+        threshold: 100
+        interval: 300
+      dingtalk:
+        enabled: true
+        threshold: 50
+        interval: 60
+    sampling-rate: 100

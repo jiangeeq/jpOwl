@@ -1,0 +1,44 @@
+jpowl:
+  enabled: true
+  output-type: FILE
+  file-path: /var/log/jpowl/app.log
+  buffer-size: 1024
+  
+  monitor:
+    log-level: INFO
+    method-monitor-enabled: true
+    sampling-rate: 100
+    
+  alert:
+    enabled: true
+    channels:
+      email:
+        enabled: true
+        threshold: 100
+        interval: 300
+      dingtalk:
+        enabled: true
+        threshold: 50
+        interval: 60
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080  # Admin Server的地址
+        instance:
+          name: ${spring.application.name}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,jpowl
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+    jpowl:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}        

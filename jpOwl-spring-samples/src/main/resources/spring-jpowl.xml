@@ -1,0 +1,12 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.youpeng.jpowl.spring.config.JpOwlConfiguration"/>
+    
+    <bean id="jpOwlProperties" class="com.youpeng.jpowl.spring.config.JpOwlProperties">
+        <property name="filePath" value="/var/log/jpowl.log"/>
+        <property name="bufferSize" value="1024"/>
+    </bean>
+</beans> 

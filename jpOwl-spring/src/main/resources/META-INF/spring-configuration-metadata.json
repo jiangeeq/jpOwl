@@ -1,0 +1,87 @@
+{
+  "groups": [
+    {
+      "name": "jpowl",
+      "type": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "description": "jpOwl监控框架配置"
+    },
+    {
+      "name": "jpowl.output",
+      "type": "com.youpeng.jpowl.spring.config.JpOwlProperties$Output",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "description": "输出源配置"
+    },
+    {
+      "name": "jpowl.monitor",
+      "type": "com.youpeng.jpowl.spring.config.JpOwlProperties$Monitor",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "description": "监控配置"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jpowl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用jpOwl监控",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.output.sources",
+      "type": "java.util.List<com.youpeng.jpowl.spring.config.OutputSourceProperties>",
+      "description": "输出源列表配置"
+    },
+    {
+      "name": "jpowl.output.sources[].type",
+      "type": "com.youpeng.jpowl.spi.OutputSourceType",
+      "description": "输出源类型(MEMORY/FILE/MONGODB/ELASTICSEARCH)",
+      "defaultValue": "FILE"
+    },
+    {
+      "name": "jpowl.output.sources[].enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用该输出源",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.output.sources[].properties",
+      "type": "java.util.Map<java.lang.String,java.lang.Object>",
+      "description": "输出源特定配置"
+    },
+    {
+      "name": "jpowl.monitor.method-enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用方法监控",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.monitor.sampling-rate",
+      "type": "java.lang.Integer",
+      "description": "采样率(0-100)",
+      "defaultValue": 100
+    }
+  ],
+  "hints": [
+    {
+      "name": "jpowl.output.sources[].type",
+      "values": [
+        {
+          "value": "MEMORY",
+          "description": "内存输出源"
+        },
+        {
+          "value": "FILE",
+          "description": "文件输出源"
+        },
+        {
+          "value": "MONGODB",
+          "description": "MongoDB输出源"
+        },
+        {
+          "value": "ELASTICSEARCH",
+          "description": "Elasticsearch输出源"
+        }
+      ]
+    }
+  ]
+} 

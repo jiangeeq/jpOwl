@@ -1,4 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.youpeng.jpowl.main.JpOwl,\
-com.youpeng.jpowl.LogbackAutoConfiguration
