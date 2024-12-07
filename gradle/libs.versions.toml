@@ -1,0 +1,59 @@
+[versions]
+springBoot = "2.7.18"
+spring = "5.3.31"
+slf4j = "1.7.36"
+logback = "1.2.12"
+log4j2 = "2.20.0"
+jackson = "2.13.4"
+commonsLang3 = "3.12.0"
+guava = "31.1-jre"
+protobuf = "3.19.1"
+netty = "4.1.68.Final"
+reflections = "0.9.12"
+disruptor = "3.4.2"
+failsafe = "2.4.4"
+junit = "5.8.1"
+mockito = "3.12.4"
+hibernateValidator = "6.2.0.Final"
+validationApi = "2.0.1.Final"
+
+[libraries]
+# Spring Boot
+springBoot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
+springBoot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "springBoot" }
+springBoot-configuration = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "springBoot" }
+springBoot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+spring-aspects = { module = "org.springframework:spring-aspects", version.ref = "spring" }
+spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring" }
+
+# 日志
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logback-core = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
+log4j2-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j2" }
+log4j2-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j2" }
+log4j2-slf4j = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "log4j2" }
+
+# 核心工具库
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+# 扩展工具库
+protobuf = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
+netty-all = { module = "io.netty:netty-all", version.ref = "netty" }
+reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
+disruptor = { module = "com.lmax:disruptor", version.ref = "disruptor" }
+failsafe = { module = "net.jodah:failsafe", version.ref = "failsafe" }
+
+# 测试框架
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-junit = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+
+# 验证框架
+hibernate-validator = { module = "org.hibernate.validator:hibernate-validator", version.ref = "hibernateValidator" }
+validation-api = { module = "javax.validation:validation-api", version.ref = "validationApi" }

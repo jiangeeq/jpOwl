@@ -1,13 +1,69 @@
 ## 设计架构
 jpOwl 客户端使用 Java 语言开发，旨在提供简洁的 API 和高可靠性，确保在各种业务场景下不会影响业务服务性能。目标是为各业务线提供全面的埋点功能和数据采集能力。
+jpOwl-extension-output/
+└── src/main/java/com/youpeng/jpowl/output/
+├── core/                           # 核心接口和基类
+│   ├── AbstractOutputSource.java   # 输出源抽象基类
+│   ├── OutputSource.java          # 输出源接口
+│   └── OutputSourceType.java      # 输出源类型枚举
+│
+├── config/                         # 配置相关
+│   ├── OutputSourceConfig.java    # 配置基类
+│   └── properties/                # 具体配置类
+│       ├── ElasticsearchProperties.java
+│       ├── InfluxDBProperties.java
+│       └── FileProperties.java
+│
+├── manager/                        # 管理相关
+│   ├── OutputSourceManager.java   # 输出源管理器
+│   └── OutputSourceFactory.java   # 输出源工厂
+│
+├── metrics/                        # 监控指标相关
+│   ├── OutputSourceMetrics.java   # 监控指标基类
+│   └── MetricsCollector.java      # 指标收集器
+│
+├── exception/                      # 异常相关
+│   └── OutputException.java       # 输出异常类
+│
+└── impl/                           # 具体实现
+├── elasticsearch/              # ES实现
+│   ├── ElasticsearchOutputSource.java
+│   └── ElasticsearchConfig.java
+├── influxdb/                   # InfluxDB实现
+│   ├── InfluxDBOutputSource.java
+│   └── InfluxDBConfig.java
+└── file/                       # 文件实现
+├── FileOutputSource.java
+└── FileConfig.java
 
-jpowl/
-├── jpowl-parent                    # 父项目，管理依赖版本
-├── jpowl-core                      # 核心实现
-├── jpowl-spring-boot-starter       # starter模块
-├── jpowl-spring-boot-autoconfigure # 自动配置模块
-├── jpowl-samples                   # 示例项目
-└── jpowl-docs                      # 文档
+### 模块说明
+
+1. **jpowl-core**: 核心功能模块
+   - 提供基础监控能力
+   - 实现数据采集和处理
+   - 支持多种输出方式
+   - 包含核心数据模型
+
+2. **jpowl-spring**: Spring框架集成
+   - 提供Spring集成支持
+   - 实现Actuator端点
+   - 配置自动装配
+   - 提供模板类
+
+3. **jpowl-spring-boot-starter**: Spring Boot 启动器
+   - 自动配置
+   - 条件装配
+   - 外部化配置
+
+4. **扩展模块**:
+   - jpowl-extension-alert: 告警通知
+   - jpowl-extension-logging: 日志扩展
+   - jpowl-extension-output: 输出扩展
+
+5. **示例模块**:
+   - jpowl-spring-samples: 使用示例
+   - 包含常见场景演示
+
 
 jpowl-docs/
 ├── README.md                # 项目总览
@@ -70,9 +126,90 @@ jpOwl主要支持以下四种监控模型：
 ### 消息树
 jpOwl监控系统将每次URL、Service的请求内部执行情况都封装为一个完整的消息树、消息树可能包括`Transaction`、`Event`、`Heartbeat`、`Metric`等信息。
 
-### 可能的规划
-1. **异步序列化：** 使用 Protobuf 协议进行高效的异步序列化。(适用跨语言支持的数据传输需求)
-2. **异步通信：** 基于 Netty 实现异步 NIO 数据传输。 (适用应用程序到日志服务器的高效传输)
+
+## 日志级别动态调整框架的应用场景
+#### 性能问题排查场景
+```angular2html
+@JpOwlMonitor(
+    logLevel = "INFO",
+    threshold = @Threshold(
+        responseTime = "1s",     // 响应时间超过1秒
+        escalateLevel = "DEBUG"  // 自动升级到DEBUG级别
+    )
+)
+public OrderResult processOrder(OrderRequest request) {
+    // 订单处理逻辑
+}
+```
+当订单处理时间异常时，自动提升日志级别
+* 帮助定位性能瓶颈
+* 收集更详细的执行信息
+#### 异常监控场景
+```angular2html
+@JpOwlMonitor(
+errorThreshold = @ErrorThreshold(
+count = 5,              // 5次错误
+timeWindow = "1m",      // 1分钟内
+escalateLevel = "DEBUG" // 升级到DEBUG
+)
+)
+public void paymentProcess() {
+// 支付处理逻辑
+}
+```
+- 短时间内出现多次异常时提升日志级别
+  及时发现系统异常
+  收集更多错误上下文信息
+#### 数据量监控场景
+
+```java
+@JpOwlMonitor(
+dataThreshold = @DataThreshold(
+size = "1MB",           // 数据量超过1MB
+escalateLevel = "DEBUG" // 升级到DEBUG
+)
+)
+public void batchDataProcess(List<Data> dataList) {
+   // 批量数据处理
+   }
+```
+- 处理大量数据时自动调整日志级别
+  监控数据处理性能
+  发现潜在的内存问题
+#### 资源使用监控场景
+
+```angular2html
+@JpOwlMonitor(
+resourceThreshold = @ResourceThreshold(
+cpuUsage = "80%",       // CPU使用率超过80%
+memoryUsage = "75%",    // 内存使用率超过75%
+escalateLevel = "DEBUG" // 升级到DEBUG
+)
+)
+public void resourceIntensiveTask() {
+// 资源密集型任务
+}
+```
+- 监控系统资源使用情况
+  及时发现资源瓶颈
+  优化资源使用
+#### 业务监控场景
+
+```angular2html
+@JpOwlMonitor(
+businessThreshold = @BusinessThreshold(
+metric = "orderAmount",
+threshold = "10000",     // 订单金额超过10000
+escalateLevel = "DEBUG"  // 升级到DEBUG
+)
+)
+public void processLargeOrder(Order order) {
+// 大额订单处理
+}
+```
+- 监控特定业务指标
+  重要业务流程追踪
+  业务异常快速定位
 
 
 我希望您充当 java领域架构师。技术水平跟springboot作者一样牛
