@@ -5,7 +5,6 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.turbo.TurboFilter;
 import ch.qos.logback.core.Appender;
-import com.youpeng.jpowl.log.CustomTurboFilter;
 import com.youpeng.jpowl.log.JpOwlLoggingEventFilter;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

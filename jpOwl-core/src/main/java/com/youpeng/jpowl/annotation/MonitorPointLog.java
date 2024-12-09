@@ -1,28 +1,40 @@
 package com.youpeng.jpowl.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+/**
+ * 监控点日志注解
+ * 用于记录方法调用的详细日志
+ * 
+ * @author youpeng
+ * @since 1.0.0
+ */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface MonitorPointLog {
-    // 触发器任务
-    String trigger() default "";
-    // 日志升级
-    String levelUp() default "";
-    // 日志降级
-    String levelDown() default "";
-    // 追加内容
-    String appendMessage() default "";
-    // 指定时间区间
-    String beginTime() default "";
-    String endTime() default "";
-    // 次数阈值
-    String threshold() default "";
-    // 时间区别：每分钟，每秒
-    String period() default "";
-    // 数据模型
-    String model() default "";
+    /**
+     * 日志点名称
+     */
+    String value() default "";
+    
+    /**
+     * 日志级别
+     */
+    String level() default "INFO";
+    
+    /**
+     * 是否记录入参
+     */
+    boolean logInput() default true;
+    
+    /**
+     * 是否记录出参
+     */
+    boolean logOutput() default true;
+    
+    /**
+     * 是否记录执行时间
+     */
+    boolean logDuration() default true;
 }

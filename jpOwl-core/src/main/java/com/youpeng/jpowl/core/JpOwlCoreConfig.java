@@ -1,3 +1,5 @@
+package com.youpeng.jpowl.core;
+
 public class JpOwlCoreConfig {
     private OutputType outputType = OutputType.FILE;
     private String filePath;

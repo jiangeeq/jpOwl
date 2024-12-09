@@ -1,87 +1,59 @@
-## 设计架构
-jpOwl 客户端使用 Java 语言开发，旨在提供简洁的 API 和高可靠性，确保在各种业务场景下不会影响业务服务性能。目标是为各业务线提供全面的埋点功能和数据采集能力。
-jpOwl-extension-output/
-└── src/main/java/com/youpeng/jpowl/output/
-├── core/                           # 核心接口和基类
-│   ├── AbstractOutputSource.java   # 输出源抽象基类
-│   ├── OutputSource.java          # 输出源接口
-│   └── OutputSourceType.java      # 输出源类型枚举
-│
-├── config/                         # 配置相关
-│   ├── OutputSourceConfig.java    # 配置基类
-│   └── properties/                # 具体配置类
-│       ├── ElasticsearchProperties.java
-│       ├── InfluxDBProperties.java
-│       └── FileProperties.java
-│
-├── manager/                        # 管理相关
-│   ├── OutputSourceManager.java   # 输出源管理器
-│   └── OutputSourceFactory.java   # 输出源工厂
-│
-├── metrics/                        # 监控指标相关
-│   ├── OutputSourceMetrics.java   # 监控指标基类
-│   └── MetricsCollector.java      # 指标收集器
-│
-├── exception/                      # 异常相关
-│   └── OutputException.java       # 输出异常类
-│
-└── impl/                           # 具体实现
-├── elasticsearch/              # ES实现
-│   ├── ElasticsearchOutputSource.java
-│   └── ElasticsearchConfig.java
-├── influxdb/                   # InfluxDB实现
-│   ├── InfluxDBOutputSource.java
-│   └── InfluxDBConfig.java
-└── file/                       # 文件实现
-├── FileOutputSource.java
-└── FileConfig.java
 
-### 模块说明
+<div align="center">
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Noto+Sans+S&duration=3500&pause=2000&color=21C8B8&center=%E7%9C%9F%E7%9A%84&vCenter=%E7%9C%9F%E7%9A%84&repeat=%E7%9C%9F%E7%9A%84&random=%E9%94%99%E8%AF%AF%E7%9A%84&width=435&lines=JpOwl%EF%BC%8C%E8%BD%BB%E9%87%8F%E7%BA%A7Java%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7%E4%B8%8E%E5%91%8A%E8%AD%A6%E6%A1%86%E6%9E%B6" alt="Typing SVG" /></a><p align="center">JpOwl是一个轻量级的Java应用监控框架,提供了完整的应用监控、日志管理和告警功能。</p>
+<p align="center">目标是为各业务线提供全面的埋点功能和数据采集能力它旨在提供简洁的API和高可靠性,确保在各种业务场景下不会影响业务服务性能。</p>
+</div>
 
-1. **jpowl-core**: 核心功能模块
-   - 提供基础监控能力
-   - 实现数据采集和处理
-   - 支持多种输出方式
-   - 包含核心数据模型
+<p align="center">
+  <img src="https://img.shields.io/badge/License-Apache%202-4EB1BA.svg" alt="License" />
+  <img src="https://img.shields.io/badge/JDK-8+-green" alt="Java Version" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.x-blue" alt="Spring Boot Version" />
+  <img src="https://img.shields.io/badge/Gradle-8.5-02303A?logo=gradle" alt="Gradle" />
+  <img src="https://img.shields.io/badge/Spring-6DB33F?logo=spring" alt="Spring" />
+  <img src="https://img.shields.io/badge/Disruptor-3.4.4-brightgreen" alt="Disruptor" />
+  <img src="https://img.shields.io/github/stars/jiangeeq/jpOwl" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/jiangeeq/jpOwl" alt="Forks" />
+</p>
 
-2. **jpowl-spring**: Spring框架集成
-   - 提供Spring集成支持
-   - 实现Actuator端点
-   - 配置自动装配
-   - 提供模板类
+<p align="center">
+  <img src="https://img.shields.io/badge/Elasticsearch-7.x|8.x-005571?logo=elasticsearch" alt="Elasticsearch" />
+  <img src="https://img.shields.io/badge/MongoDB-4.x|5.x-47A248?logo=mongodb" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/InfluxDB-2.x-22ADF6?logo=influxdb" alt="InfluxDB" />
 
-3. **jpowl-spring-boot-starter**: Spring Boot 启动器
-   - 自动配置
-   - 条件装配
-   - 外部化配置
+  <img src="https://img.shields.io/badge/Logback-1.2-2D3B41" alt="Logback" />
+  <img src="https://img.shields.io/badge/Log4j2-2.x-D22128" alt="Log4j2" />
 
-4. **扩展模块**:
-   - jpowl-extension-alert: 告警通知
-   - jpowl-extension-logging: 日志扩展
-   - jpowl-extension-output: 输出扩展
-
-5. **示例模块**:
-   - jpowl-spring-samples: 使用示例
-   - 包含常见场景演示
+  <img src="https://img.shields.io/badge/DingTalk-Robot-0077FF" alt="DingTalk" />
+  <img src="https://img.shields.io/badge/Email-Spring--Email-EA4335?logo=gmail" alt="Email" />
+  <img src="https://img.shields.io/badge/Webhook-HTTP-000000" alt="Webhook" />
+</p>
 
 
-jpowl-docs/
-├── README.md                # 项目总览
-├── quick-start.md          # 快速开始指南
-├── user-guide/             # 用户指南
-│   ├── configuration.md    # 配置说明
-│   ├── monitoring.md       # 监控使用
-│   └── alerts.md          # 告警配置
-├── developer-guide/        # 开发者指南
-│   ├── architecture.md     # 架构设计
-│   └── contributing.md     # 贡献指南
-└── api-docs/              # API文档
+
+## 特性
+- **轻量级**: 低侵入性,对应用性能影响极小
+- **高性能**: 异步处理,支持批量写入,内存级缓冲
+- **可扩展**: 插件化架构,支持自定义扩展
+- **多框架支持**:
+    - 日志框架: Logback, Log4j2
+    - 存储引擎: 文件, ES, MongoDB, InfluxDB
+    - 告警通道: 钉钉, 邮件, Webhook
+- **丰富的监控模型**:
+    - Transaction: 记录方法调用链路和性能
+    - Event: 记录业务事件
+    - Metric: 记录业务指标
+    - Heartbeat: 系统健康检查
+- **动态配置**: 支持运行时调整采样率、日志级别等
+- **告警管理**: 支持多维度告警策略配置
 
 
-数据收集机制：
-* **ThreadLocal：** 利用 ThreadLocal 为每个线程提供独立的副本，避免线程间的数据冲突。在执行业务逻辑时，将监控数据存储到 ThreadContext 中，它以树形结构组织监控信息。业务线程完成后，将监控对象异步地存入内存队列。jpOwl 使用消费者线程异步将数据发送到第三方存储引擎。
 
-![img.png](docs/img.png)
+### 数据流转
+
+1. 业务线程执行时创建MonitorContext
+2. 通过ThreadLocal存储上下文信息
+3. 异步写入监控数据到输出源
+4. 触发相应的告警规则
 
 ## 场景需求
 1. **监控粒度控制：** 支持在接口、方法或代码块级别进行监控。
@@ -97,9 +69,21 @@ jpowl-docs/
 
 
 ## 性能设计
-1. **异步 I/O**  操作：优化 I/O 操作以提高性能。
-2. **异步数据采集：使用 NIO**  管道进行日志记录，减少阻塞。 
-3. **内存级缓冲：支持指定缓存队列大小，** 并采用内存队列安全机制，当队列填充至 80% 时，丢弃低优先级的日志（如 TRACE、DEBUG、INFO）。
+
+### 异步处理
+- 使用Disruptor队列
+- 批量写入机制
+- 背压控制
+
+### 采样控制
+- 支持配置采样率
+- 动态调整采样策略
+- 支持过滤规则
+
+### 内存管理
+- 内存队列控制
+- 缓冲区大小限制
+- 溢出保护机制
 
 
 ## 价值与优势
@@ -115,17 +99,67 @@ jpowl-docs/
 * **故障容忍：** 故障不会影响业务的正常运行，业务操作对监控透明。
 * **高吞吐：** 高效处理大量监控数据，保证系统稳定性和性能。
 
-## 业务模型监控
-jpOwl主要支持以下四种监控模型：
+## 监控模型
 
-* **Transaction**	适合记录跨越系统边界的程序访问行为,比如远程调用，数据库调用，也适合执行时间较长的业务逻辑监控，Transaction用来记录一段代码的执行时间和次数。
-* **Event**	用来记录一件事发生的次数，比如记录系统异常，它和transaction相比缺少了时间的统计，开销比transaction要小。
-* **Heartbeat**	表示程序内定期产生的统计信息, 如CPU利用率, 内存利用率, 连接池状态, 系统负载等。
-* **Metric** 用于记录业务指标、指标可能包含对一个指标记录次数、记录平均值、记录总和，业务指标最低统计粒度为1分钟。
+| 监控类型 | 适用场景 |
+|---------|---------|
+| **Transaction监控** | • 远程调用(RPC, HTTP等)<br>• 数据库操作<br>• 关键业务流程<br>• 长耗时操作 |
+| **Event监控** | • 业务事件记录<br>• 异常事件统计<br>• 操作审计<br>• 状态变更 |
+| **Metric监控** | • 业务指标统计<br>• 性能指标采集<br>• QPS/TPS监控<br>• 资源使用率 |
+| **Heartbeat监控** | • 系统健康检查<br>• 服务可用性监控<br>• 资源使用监控<br>• 连接池状态 |
+
 
 ### 消息树
 jpOwl监控系统将每次URL、Service的请求内部执行情况都封装为一个完整的消息树、消息树可能包括`Transaction`、`Event`、`Heartbeat`、`Metric`等信息。
 
+
+
+### 使用示例
+```xml
+<dependency>
+    <groupId>com.youpeng.jpowl</groupId>
+    <artifactId>jpowl-spring-boot-starter</artifactId>
+    <version>${jpowl.version}</version>
+</dependency>
+```
+### Spring Boot配置
+
+```yaml
+jpowl:
+  enabled: true
+  sampling-rate: 100
+  output:
+    type: FILE
+    path: logs/monitor.log
+  alert:
+    enabled: true
+    type: dingtalk
+    webhook: https://oapi.dingtalk.com/robot/send?access_token=xxx
+```
+```java
+// 1. 注解方式
+@JpOwlMonitor(
+        tags = {"order", "payment"},
+        logParams = true,
+        threshold = @Threshold(duration = "1s")
+)
+public OrderResult processOrder(OrderRequest request) {
+    // 业务逻辑
+}
+
+// 2. 编程方式
+public void businessMethod() {
+    MonitorContext context = null;
+    try {
+        context = MonitorManager.startMonitor("business-operation");
+        // 业务逻辑
+        context.addTag("business", "order");
+        context.addMetric("amount", 100.00);
+    } finally {
+        MonitorManager.endMonitor(context);
+    }
+}
+```
 
 ## 日志级别动态调整框架的应用场景
 #### 性能问题排查场景
@@ -158,14 +192,14 @@ public void paymentProcess() {
 }
 ```
 - 短时间内出现多次异常时提升日志级别
-  及时发现系统异常
-  收集更多错误上下文信息
+-  及时发现系统异常
+-  收集更多错误上下文信息
 #### 数据量监控场景
 
 ```java
 @JpOwlMonitor(
 dataThreshold = @DataThreshold(
-size = "1MB",           // 数据量超过1MB
+size = "1MB",           // 数据量超过1MB(只针对参数或返回值)
 escalateLevel = "DEBUG" // 升级到DEBUG
 )
 )
@@ -174,8 +208,8 @@ public void batchDataProcess(List<Data> dataList) {
    }
 ```
 - 处理大量数据时自动调整日志级别
-  监控数据处理性能
-  发现潜在的内存问题
+-  监控数据处理性能
+-  发现潜在的内存问题
 #### 资源使用监控场景
 
 ```angular2html
@@ -191,8 +225,8 @@ public void resourceIntensiveTask() {
 }
 ```
 - 监控系统资源使用情况
-  及时发现资源瓶颈
-  优化资源使用
+-   及时发现资源瓶颈
+-  优化资源使用
 #### 业务监控场景
 
 ```angular2html
@@ -208,11 +242,18 @@ public void processLargeOrder(Order order) {
 }
 ```
 - 监控特定业务指标
-  重要业务流程追踪
-  业务异常快速定位
+-   重要业务流程追踪
+-  业务异常快速定位
 
-
-我希望您充当 java领域架构师。技术水平跟springboot作者一样牛
-我将提供有向你咨询关于框架项目开发的问题，我需要你给出答案或建议
-给出的代码还要考虑到扩展性以及用设计模式优化，我的主要目的是自己
-开发一款公司全业务项目通用的jar，所以代码要优雅和支持并发，明白了吗
+## 相关文档
+```
+jpowl-docs/
+├── README.md                # 项目总览
+├── quick-start.md          # 快速开始指南
+├── user-guide/             # 用户指南
+│   ├── configuration.md    # 配置说明
+│   ├── monitoring.md       # 监控使用
+│   └── alerts.md          # 告警配置
+├── developer-guide/        # 开发者指南
+│   ├── architecture.md     # 架构设计
+```

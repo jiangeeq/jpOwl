@@ -1,7 +1,6 @@
 package com.youpeng.jpowl.main;
 
 import com.youpeng.jpowl.annotation.MonitorPointLog;
-import com.youpeng.jpowl.config.ConfigManager;
 import com.youpeng.jpowl.config.LogLevel;
 import com.youpeng.jpowl.core.MonitorManager;
 import com.youpeng.jpowl.output.AsyncFileOutput;

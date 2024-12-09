@@ -1,25 +1,23 @@
 jpowl:
-  enabled: true
-  output-type: FILE
-  file-path: /var/log/jpowl/app.log
-  buffer-size: 1024
+  storage:
+    type: redis  # 可选: memory, redis, mysql, elasticsearch
+    redis:
+      host: localhost
+      port: 6379
+    mysql:
+      url: jdbc:mysql://localhost:3306/jpowl
+      username: root
+      password: root
+    elasticsearch:
+      hosts: http://localhost:9200
   
-  monitor:
-    log-level: INFO
-    method-monitor-enabled: true
-    sampling-rate: 100
-    
-  alert:
+  monitoring:
     enabled: true
-    channels:
-      email:
-        enabled: true
-        threshold: 100
-        interval: 300
-      dingtalk:
-        enabled: true
-        threshold: 50
-        interval: 60
+    log-params: false
+    log-result: false
+    
+  actuator:
+    enabled: true
 spring:
   boot:
     admin:

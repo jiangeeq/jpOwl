@@ -5,7 +5,6 @@ import com.youpeng.jpowl.model.*;
 import com.youpeng.jpowl.output.OutputHandler;
 import com.youpeng.jpowl.trigger.Trigger;
 import com.youpeng.jpowl.aggregator.MetricAggregator;
-import com.youpeng.jpowl.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;

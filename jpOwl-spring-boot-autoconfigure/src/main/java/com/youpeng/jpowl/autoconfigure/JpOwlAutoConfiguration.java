@@ -1,6 +1,14 @@
+/**
+ * JpOwl自动配置类
+ * 负责自动装配JpOwl的核心组件
+ */
 @Configuration
 @ConditionalOnClass(JpOwl.class)
 @EnableConfigurationProperties(JpOwlProperties.class)
+@Import({
+    OutputConfiguration.class,
+    MonitorConfiguration.class
+})
 public class JpOwlAutoConfiguration {
     
     @Bean
@@ -10,12 +18,6 @@ public class JpOwlAutoConfiguration {
         jpOwl.setLogPrefix(properties.getLogPrefix());
         jpOwl.setLogLevel(properties.getLogLevel());
         return jpOwl;
-    }
-    
-    @Bean
-    @ConditionalOnMissingBean
-    public MonitorManager monitorManager(OutputHandler outputHandler) {
-        return new MonitorManager(outputHandler);
     }
     
     @Bean

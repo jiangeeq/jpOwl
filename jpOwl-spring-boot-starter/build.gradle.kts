@@ -10,8 +10,11 @@ repositories {
 }
 
 dependencies {
-    // 可选依赖
-    compileOnly(project(":jpOwl-extension-alert"))
+    api(project(":jpOwl-core"))
+    api(project(":jpOwl-spring-boot-autoconfigure"))
+    
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework:spring-webmvc")
 
-    implementation(project(":jpOwl-spring-boot-autoconfigure"))
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
 }

@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "jpowl",
+      "type": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jpowl.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用JpOwl.",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "jpowl.output-source-type",
+      "type": "java.lang.String",
+      "description": "输出源类型(MYSQL/REDIS).",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties"
+    },
+    {
+      "name": "jpowl.retry-times",
+      "type": "java.lang.Integer",
+      "description": "重试次数.",
+      "sourceType": "com.youpeng.jpowl.spring.config.JpOwlProperties",
+      "defaultValue": 3
+    }
+  ],
+  "hints": [
+    {
+      "name": "jpowl.output-source-type",
+      "values": [
+        {
+          "value": "MYSQL",
+          "description": "MySQL输出源"
+        },
+        {
+          "value": "REDIS",
+          "description": "Redis输出源"
+        }
+      ]
+    }
+  ]
+} 

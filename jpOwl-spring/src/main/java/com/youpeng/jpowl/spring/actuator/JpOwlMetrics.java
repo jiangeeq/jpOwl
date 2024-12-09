@@ -1,26 +1,46 @@
-@Component
+package com.youpeng.jpowl.spring.actuator;
+
+import com.youpeng.jpowl.core.JpOwlCore;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Spring Boot Actuator 集成
+ * 提供监控指标暴露功能
+ */
+@Endpoint(id = "jpowl")
 public class JpOwlMetrics {
-    
     private final JpOwlCore jpOwlCore;
-    
-    public JpOwlMetrics(JpOwlCore jpOwlCore, MeterRegistry registry) {
+    private final MeterRegistry meterRegistry;
+
+    public JpOwlMetrics(JpOwlCore jpOwlCore, MeterRegistry meterRegistry) {
         this.jpOwlCore = jpOwlCore;
-        
-        // 注册核心指标
-        Gauge.builder("jpowl.monitor.count", jpOwlCore, this::getMonitorCount)
-             .description("Total number of monitored operations")
-             .register(registry);
-             
-        Gauge.builder("jpowl.output.queue.size", jpOwlCore, this::getQueueSize)
-             .description("Current size of output queue")
-             .register(registry);
+        this.meterRegistry = meterRegistry;
+        initMetrics();
     }
-    
-    private long getMonitorCount() {
-        return jpOwlCore.getMetrics().getOrDefault("monitorCount", 0L);
+
+    private void initMetrics() {
+        // 注册方法执行时间指标
+        meterRegistry.gauge("jpowl.method.duration", Tags.empty(), jpOwlCore, 
+            core -> core.getAverageExecutionTime());
+            
+        // 注册错误率指标
+        meterRegistry.gauge("jpowl.method.error.rate", Tags.empty(), jpOwlCore,
+            core -> core.getErrorRate());
     }
-    
-    private int getQueueSize() {
-        return jpOwlCore.getMetrics().getOrDefault("queueSize", 0);
+
+    @ReadOperation
+    public Map<String, Object> getMetrics() {
+        Map<String, Object> metrics = new HashMap<>();
+        metrics.put("totalExecutions", jpOwlCore.getTotalExecutions());
+        metrics.put("averageExecutionTime", jpOwlCore.getAverageExecutionTime());
+        metrics.put("errorCount", jpOwlCore.getErrorCount());
+        metrics.put("errorRate", jpOwlCore.getErrorRate());
+        return metrics;
     }
 } 

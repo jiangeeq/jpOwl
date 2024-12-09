@@ -1,35 +1,41 @@
-public class JpOwlCore {
+package com.youpeng.jpowl.core;
+
+import com.youpeng.jpowl.core.monitor.MonitorManager;
+import com.youpeng.jpowl.core.api.OutputSource;
+import com.youpeng.jpowl.core.config.MonitorConfig;
+import com.youpeng.jpowl.core.context.MonitorContext;
+
+/**
+ * JpOwl核心类
+ */
+public class JpOwlCore implements AutoCloseable {
     private final MonitorManager monitorManager;
-    private final MetricAggregator metricAggregator;
-    private final OutputHandler outputHandler;
-    
-    public JpOwlCore(JpOwlCoreConfig config) {
-        this.outputHandler = createOutputHandler(config);
-        this.monitorManager = new MonitorManager(outputHandler);
-        this.metricAggregator = new MetricAggregator();
+    private final MonitorConfig config;
+    private volatile boolean running = true;
+
+    public JpOwlCore(OutputSource outputSource, MonitorConfig config) {
+        if (outputSource == null) {
+            throw new IllegalArgumentException("OutputSource cannot be null");
+        }
+        if (config == null) {
+            throw new IllegalArgumentException("MonitorConfig cannot be null");
+        }
+        this.monitorManager = new MonitorManager(outputSource);
+        this.config = config;
     }
-    
-    private OutputHandler createOutputHandler(JpOwlCoreConfig config) {
-        return switch (config.getOutputType()) {
-            case FILE -> new AsyncFileOutput(config.getFilePath());
-            case MEMORY -> new MemoryOutput();
-            case ELASTICSEARCH -> new ElasticsearchOutput();
-            case MONGODB -> new MongoOutput();
-            default -> new AsyncFileOutput(config.getFilePath());
-        };
+
+    public MonitorContext startMonitor(String name) {
+        if (!running || !config.isEnabled()) {
+            return null;
+        }
+        return monitorManager.startMonitor(name);
     }
-    
-    // 核心API方法
-    public void logTransaction(String name, long duration) {
-        monitorManager.logTransaction(new Transaction(name, duration));
-    }
-    
-    public void logEvent(String name, String detail) {
-        monitorManager.logEvent(new Event(name, detail));
-    }
-    
-    public void shutdown() {
-        monitorManager.shutdown();
-        metricAggregator.shutdown();
+
+    @Override
+    public void close() {
+        if (running) {
+            running = false;
+            monitorManager.shutdown();
+        }
     }
 } 

@@ -10,8 +10,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(project(":jpOwl-spring-boot-starter"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // 数据库相关依赖
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.test {

@@ -1,86 +1,52 @@
+/**
+ * JpOwl配置属性类
+ */
 @ConfigurationProperties(prefix = "jpowl")
-@Validated
 public class JpOwlProperties {
-    /**
-     * 是否启用jpOwl
-     */
-    private boolean enabled = true;
+    
+    private String logPrefix;
+    private String logLevel;
+    private TriggerProperties trigger = new TriggerProperties();
+    private OutputProperties output = new OutputProperties();
+    
+    // getter and setter
 
     /**
-     * 日志输出类型
+     * 告警触发器配置
      */
-    private OutputType outputType = OutputType.FILE;
-
-    /**
-     * 日志文件路径
-     */
-    @NotEmpty(message = "日志文件路径不能为空")
-    private String filePath;
-
-    /**
-     * 缓冲区大小
-     */
-    @Min(value = 64, message = "缓冲区大小不能小于64")
-    @Max(value = 8192, message = "缓冲区大小不能大于8192")
-    private int bufferSize = 1024;
-
-    /**
-     * 监控配置
-     */
-    private Monitor monitor = new Monitor();
-
-    /**
-     * 告警配置
-     */
-    private Alert alert = new Alert();
-
-    @Data
-    public static class Monitor {
-        /**
-         * 默认日志级别
-         */
-        private LogLevel logLevel = LogLevel.INFO;
-
-        /**
-         * 是否启用方法监控
-         */
-        private boolean methodMonitorEnabled = true;
-
-        /**
-         * 监控采样率(0-100)
-         */
-        @Range(min = 0, max = 100)
-        private int samplingRate = 100;
+    public static class TriggerProperties {
+        private boolean enabled;
+        private String type;
+        // getter and setter
     }
 
-    @Data
-    public static class Alert {
-        /**
-         * 是否启用告警
-         */
-        private boolean enabled = false;
-
-        /**
-         * 告警方式配置
-         */
-        private Map<String, AlertChannel> channels = new HashMap<>();
+    /**
+     * 输出配置
+     */
+    public static class OutputProperties {
+        private RedisProperties redis = new RedisProperties();
+        private MySQLProperties mysql = new MySQLProperties();
+        // getter and setter
     }
 
-    @Data
-    public static class AlertChannel {
-        /**
-         * 是否启用该渠道
-         */
-        private boolean enabled = false;
+    /**
+     * Redis输出配置
+     */
+    public static class RedisProperties {
+        private boolean enabled;
+        private String host;
+        private int port;
+        // getter and setter
+    }
 
-        /**
-         * 告警阈值
-         */
-        private int threshold = 100;
-
-        /**
-         * 告警间隔(秒)
-         */
-        private int interval = 300;
+    /**
+     * MySQL输出配置
+     */
+    public static class MySQLProperties {
+        private boolean enabled;
+        private String url;
+        private String username;
+        private String password;
+        // getter and setter
     }
 } 

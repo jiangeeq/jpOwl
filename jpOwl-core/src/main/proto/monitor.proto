@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-message MonitorData {
-  string message = 1;
-  int64 timestamp = 2;
-}

@@ -6,6 +6,7 @@ import com.youpeng.jpowl.logging.filter.CompositeFilter;
 import com.youpeng.jpowl.logging.filter.LogFilter;
 import com.youpeng.jpowl.logging.model.LogEvent;
 import com.youpeng.jpowl.logging.handler.LogEventHandler;
+import com.youpeng.jpowl.logging.monitor.LoggingMetrics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,15 @@ public class LogProcessingChain {
     private final CompositeFilter filter = new CompositeFilter();
     private final List<LogEventHandler> handlers = new ArrayList<>();
     private final List<LogEventDecorator> decorators = new ArrayList<>();
+    private final LoggingMetrics metrics;
+
+    public LoggingMetrics getMetrics() {
+        return metrics;
+    }
+
+    public LogProcessingChain(LoggingMetrics metrics) {
+        this.metrics = metrics;
+    }
 
     public void addDecorator(LogEventDecorator decorator) {
         decorators.add(decorator);
@@ -43,13 +53,18 @@ public class LogProcessingChain {
      * 处理日志事件
      */
     public void process(LogEvent event) {
+        // 记录处理开始时间
+        long startTime = System.nanoTime();
+        
         // 1. 先进行过滤
         if (!filter.accept(event)) {
+            metrics.recordDroppedLog();
             return;
         }
         
         LogEvent processedEvent = filter.process(event);
         if (processedEvent == null) {
+            metrics.recordDroppedLog();
             return;
         }
         // 2. 进行装饰
@@ -60,11 +75,20 @@ public class LogProcessingChain {
         // 3. 执行处理器
         for (LogEventHandler handler : handlers) {
             try {
-                handler.handle(processedEvent);
+                LogEvent handledEvent = handler.handle(processedEvent);
+                if (handledEvent == null) {
+                    metrics.recordDroppedLog();
+                    return;
+                }
+                processedEvent = handledEvent;
             } catch (LogHandlerException e) {
+                metrics.recordDroppedLog();
                 // 处理异常
             }
         }
         
+        // 记录处理完成时间并更新指标
+        long processingTime = System.nanoTime() - startTime;
+        metrics.recordLogEvent(processedEvent, processingTime);
     }
 } 
